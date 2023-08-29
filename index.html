@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html oncontextmenu="return false" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Clock By Akash Khan</title>
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-image: radial-gradient(
+        circle farthest-corner at 10% 20%,
+        rgba(100, 43, 115, 1) 0%,
+        rgba(4, 0, 4, 1) 90%
+      );
+      height: 100vh;
+    }
+    .container {
+      border: 2px solid white;
+      width: 400px;
+      padding: 40px 0;
+      border-radius: 5px;
+
+      margin: 35vh auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      -webkit-box-reflect: below 3px
+        linear-gradient(transparent, rgba(255, 255, 255, 0.1));
+      transition: ease-in-out 0.4s;
+      cursor: pointer;
+    }
+
+    .container:hover {
+      box-shadow: 14px 1px 34px 30px
+        radial-gradient(
+          circle farthest-corner at 10% 20%,
+          rgba(100, 43, 115, 1) 0%,
+          rgba(4, 0, 4, 1) 90%
+        );
+    }
+    #clock {
+      font-size: 60px;
+      color: white;
+      margin-top: 10px;
+    }
+    #date {
+      font-size: 24px;
+      color: white;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div id="date">January 1, 2023</div>
+      <div id="clock">00:00:00 AM</div>
+    </div>
+    <script>
+      const clockDisplay = document.getElementById("clock");
+      const dateDisplay = document.getElementById("date");
+
+      function updateClock() {
+        const now = new Date();
+        const hours = now.getHours() % 12 || 12; // Convert to 12-hour format
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const seconds = String(now.getSeconds()).padStart(2, "0");
+        const ampm = now.getHours() < 12 ? "AM" : "PM";
+        clockDisplay.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+      }
+
+      function updateDate() {
+        const now = new Date();
+        const options = {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        };
+        const formattedDate = now.toLocaleDateString(undefined, options);
+        dateDisplay.textContent = formattedDate;
+      }
+
+      setInterval(updateClock, 1000); // Update time every second
+      updateDate(); // Update date immediately
+      setInterval(updateDate, 86400000); //
+    </script>
+  </body>
+</html>
